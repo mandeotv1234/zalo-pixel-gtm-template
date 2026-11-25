@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zalo Pixel GTM Template — Tài liệu</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+  color: #1e293b; background: #f8fafc; line-height: 1.7;
+}
+
+/* Navbar */
+.navbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,.96); backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0; padding: 0 40px;
+}
+.navbar-inner {
+  max-width: 1080px; margin: 0 auto;
+  display: flex; align-items: center; gap: 28px; height: 56px;
+}
+.brand {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 14.5px; color: #0f172a;
+  text-decoration: none; white-space: nowrap;
+}
+.brand-dot { width: 8px; height: 8px; border-radius: 50%; background: #0068ff; flex-shrink: 0; }
+.nav-links { display: flex; gap: 2px; flex-wrap: nowrap; overflow: hidden; }
+.nav-links a {
+  padding: 5px 12px; border-radius: 6px; color: #64748b;
+  text-decoration: none; font-size: 13px; font-weight: 500;
+  transition: all .15s; white-space: nowrap;
+}
+.nav-links a:hover { background: #f1f5f9; color: #0f172a; }
+
+/* Page wrapper */
+.page { max-width: 1080px; margin: 0 auto; padding: 0 40px 100px; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #0050cc 0%, #0068ff 55%, #00a8ff 100%);
+  margin: 0 -40px; padding: 64px 40px 72px; text-align: center;
+}
+.hero-inner { max-width: 680px; margin: 0 auto; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25);
+  border-radius: 20px; padding: 4px 14px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: .06em;
+  color: rgba(255,255,255,.9); margin-bottom: 20px; text-transform: uppercase;
+}
+.hero h1 { font-size: 34px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 14px; }
+.hero-sub { font-size: 16px; color: rgba(255,255,255,.8); margin-bottom: 28px; line-height: 1.6; }
+.badges { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.badge {
+  background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3);
+  border-radius: 8px; padding: 6px 14px; font-size: 13px; color: #fff;
+}
+
+/* Section */
+section { padding: 60px 0 0; }
+.sec-label {
+  font-size: 11.5px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: #0068ff; margin-bottom: 6px;
+}
+.sec-title { font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 10px; line-height: 1.25; }
+.sec-desc { font-size: 14.5px; color: #64748b; margin-bottom: 32px; max-width: 600px; }
+
+/* Cards */
+.cards { display: grid; gap: 18px; }
+.g2 { grid-template-columns: 1fr 1fr; }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 24px; }
+.card-icon {
+  width: 42px; height: 42px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 12px;
+}
+.ib { background: #eff6ff; } .ig { background: #f0fdf4; }
+.ip { background: #faf5ff; } .io { background: #fff7ed; }
+.card-title { font-size: 14.5px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.card-body { font-size: 13.5px; color: #64748b; line-height: 1.65; }
+.card-body strong { color: #334155; }
+
+/* Steps */
+.steps { display: flex; flex-direction: column; }
+.step { display: flex; gap: 22px; padding: 26px 0; border-bottom: 1px solid #f1f5f9; }
+.step:last-child { border-bottom: none; }
+.step-left { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+.step-num {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: #0068ff; color: #fff; font-weight: 800; font-size: 15px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.step-line { width: 2px; background: #e2e8f0; flex: 1; margin-top: 8px; min-height: 16px; }
+.step:last-child .step-line { display: none; }
+.step-body { flex: 1; padding-top: 5px; }
+.step-body h3 { font-size: 15.5px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+.step-body p { font-size: 13.5px; color: #475569; margin-bottom: 8px; line-height: 1.65; }
+.step-body ul { padding-left: 18px; font-size: 13.5px; color: #475569; margin-bottom: 8px; }
+.step-body ul li { margin-bottom: 5px; }
+.step-body strong { color: #1e293b; }
+
+/* Callout */
+.callout {
+  display: flex; gap: 12px; border-radius: 10px;
+  padding: 14px 18px; margin: 14px 0; font-size: 13.5px;
+}
+.callout-icon { font-size: 17px; flex-shrink: 0; line-height: 1.6; }
+.callout p { margin: 0; line-height: 1.65; }
+.callout > div > strong { display: block; margin-bottom: 3px; }
+.info  { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e3a5f; }
+.warn  { background: #fffbeb; border-left: 4px solid #f59e0b; color: #78350f; }
+.ok    { background: #f0fdf4; border-left: 4px solid #22c55e; color: #14532d; }
+.tip   { background: #faf5ff; border-left: 4px solid #a855f7; color: #3b0764; }
+
+/* Table */
+.tw { overflow-x: auto; border-radius: 10px; border: 1px solid #e2e8f0; margin: 14px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: #f8fafc; }
+th {
+  padding: 9px 15px; text-align: left; font-weight: 600; color: #475569;
+  font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em;
+  border-bottom: 1px solid #e2e8f0; white-space: nowrap;
+}
+td { padding: 10px 15px; border-bottom: 1px solid #f1f5f9; color: #334155; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f8fafc; }
+code {
+  font-family: 'SF Mono', 'Fira Code', Menlo, monospace;
+  font-size: 12px; background: #f1f5f9; border-radius: 4px;
+  padding: 2px 6px; color: #d6336c;
+}
+
+/* Flow diagram */
+.flow {
+  background: #0f172a; border-radius: 14px; padding: 28px 32px; margin: 20px 0;
+  font-family: 'SF Mono', monospace; font-size: 12.5px; overflow-x: auto;
+}
+.flow-row { display: flex; align-items: center; margin-bottom: 10px; }
+.flow-row:last-child { margin-bottom: 0; }
+.fbox {
+  background: #1e3a5f; border: 1px solid #2d4a6f;
+  border-radius: 8px; padding: 9px 16px; color: #93c5fd;
+  white-space: nowrap; line-height: 1.5;
+}
+.fbox.g { background: #14532d; border-color: #166534; color: #86efac; }
+.fbox.y { background: #422006; border-color: #7c2d12; color: #fcd34d; }
+.fbox.note { background: transparent; border: none; color: #475569; font-size: 11px; padding: 9px 10px; }
+.arr { color: #475569; padding: 0 10px; font-size: 16px; flex-shrink: 0; }
+.flow-indent { padding-left: 24px; }
+.arr-down { color: #334155; padding: 2px 0 2px 36px; font-size: 13px; display: block; }
+
+/* Pkg */
+.pkg { background: #fff; border: 2px solid #e2e8f0; border-radius: 14px; overflow: hidden; margin-bottom: 18px; }
+.pkg.hot { border-color: #0068ff; }
+.pkg-hdr { display: flex; align-items: center; gap: 14px; padding: 18px 22px 16px; }
+.pkg-n {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: #e2e8f0; color: #475569; font-weight: 800; font-size: 14px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.pkg.hot .pkg-n { background: #0068ff; color: #fff; }
+.pkg-title { font-size: 15px; font-weight: 700; color: #0f172a; }
+.pkg-sub { font-size: 13px; color: #64748b; margin-top: 2px; }
+.pbadge {
+  font-size: 11px; font-weight: 600; padding: 3px 11px;
+  border-radius: 20px; white-space: nowrap; margin-left: auto;
+}
+.pb-now { background: #fef9c3; color: #a16207; }
+.pb-ent { background: #f3e8ff; color: #7e22ce; }
+.pb-rec { background: #dbeafe; color: #1d4ed8; }
+.pkg-body { padding: 0 22px 22px; font-size: 13.5px; color: #475569; }
+.pkg-body p { margin-bottom: 10px; }
+.pkg-step { display: flex; gap: 9px; margin-bottom: 6px; font-size: 13px; color: #334155; align-items: flex-start; }
+.pkg-sn {
+  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+  background: #f1f5f9; color: #64748b; font-size: 10.5px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; margin-top: 1px;
+}
+.pro-con { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.pro, .con { background: #f8fafc; border-radius: 8px; padding: 11px 13px; font-size: 12.5px; }
+.pro strong { color: #15803d; display: block; margin-bottom: 3px; }
+.con strong { color: #dc2626; display: block; margin-bottom: 3px; }
+.pro ul, .con ul { padding-left: 15px; color: #475569; }
+.pro li, .con li { margin-bottom: 2px; }
+
+/* Selector cards */
+.sel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.sel-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px 18px; }
+.sel-type { font-size: 11.5px; font-weight: 700; color: #0068ff; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .04em; }
+.sel-ex {
+  font-family: 'SF Mono', monospace; font-size: 12px; color: #d6336c;
+  background: #fef2f2; border-radius: 5px; padding: 5px 9px; margin-bottom: 8px;
+  word-break: break-all;
+}
+.sel-note { font-size: 12.5px; color: #64748b; line-height: 1.6; }
+
+/* Network rows */
+.net-row {
+  background: #fff; border: 1px solid #e2e8f0; border-radius: 10px;
+  padding: 14px 18px; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 14px;
+}
+.net-url { font-family: 'SF Mono', monospace; font-size: 11.5px; color: #334155; word-break: break-all; flex: 1; line-height: 1.6; }
+.net-label { font-size: 12px; color: #64748b; margin-top: 5px; }
+.net-tag { font-size: 11.5px; font-weight: 700; padding: 3px 9px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; }
+.tag-ok  { background: #dcfce7; color: #15803d; }
+.tag-key { background: #dbeafe; color: #1d4ed8; }
+
+/* Events grid */
+.ev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 18px 0; }
+.ev-chip { background: #fff; border: 1px solid #e2e8f0; border-radius: 9px; padding: 11px 14px; }
+.ev-name { font-size: 12.5px; font-weight: 700; color: #0f172a; font-family: 'SF Mono', monospace; }
+.ev-desc { font-size: 11.5px; color: #64748b; margin-top: 2px; }
+
+/* Misc */
+.divider { border: none; border-top: 1px solid #e2e8f0; margin: 48px 0 0; }
+
+@media (max-width: 768px) {
+  .page { padding: 0 20px 80px; }
+  .hero { margin: 0 -20px; padding: 48px 20px 56px; }
+  .hero h1 { font-size: 26px; }
+  .g2, .g3 { grid-template-columns: 1fr; }
+  .sel-grid, .ev-grid { grid-template-columns: 1fr 1fr; }
+  .nav-links { display: none; }
+  .pro-con { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="#" class="brand"><span class="brand-dot"></span>Zalo Pixel GTM Template</a>
+    <div class="nav-links">
+      <a href="#overview">Tổng quan</a>
+      <a href="#how">Cơ chế</a>
+      <a href="#packaging">Đóng gói</a>
+      <a href="#gtm">Setup GTM</a>
+      <a href="#conversion">Tạo Conversion</a>
+      <a href="#selector">Cấu hình nút</a>
+      <a href="#events">17 Loại</a>
+      <a href="#verify">Kiểm tra</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">📦 Internal — Tài liệu kỹ thuật</div>
+    <h1>Zalo Pixel GTM Template</h1>
+    <p class="hero-sub">Tích hợp Zalo Pixel qua Google Tag Manager — tự động ghi nhận lượt nhấp vào nút bấm mà không cần thêm code vào website.</p>
+    <div class="badges">
+      <span class="badge">✅ 6/6 Events Verified</span>
+      <span class="badge">🏷 GTM-NZJLBMFK</span>
+      <span class="badge">⚡ Click auto-detection</span>
+      <span class="badge">🌐 Demo live trên Vercel</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ TỔNG QUAN ══ -->
+<section id="overview">
+  <div class="sec-label">Tổng quan</div>
+  <div class="sec-title">Những gì đã xây dựng</div>
+  <div class="sec-desc">Trọn bộ để ghi nhận conversion Zalo Pixel qua GTM — từ template đến container mẫu và landing page demo đã xác minh.</div>
+
+  <div class="cards g2">
+    <div class="card">
+      <div class="card-icon ib">📄</div>
+      <div class="card-title">GTM Tag Template (<code>template.tpl</code>)</div>
+      <div class="card-body">Custom Tag Template cho Google Tag Manager. Advertiser import một lần, cấu hình và deploy — <strong>không cần developer</strong> sau bước nhúng GTM ban đầu.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon ig">🏷</div>
+      <div class="card-title">GTM Container mẫu — GTM-NZJLBMFK</div>
+      <div class="card-body">Container đã publish, kèm tag Initialize và trigger sẵn sàng. Advertiser export JSON về dùng ngay, chỉ cần đổi Pixel ID.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon ip">🎯</div>
+      <div class="card-title">Landing page demo</div>
+      <div class="card-body">Website demo tích hợp 6 conversion: <strong>Purchase, AddToCart, InitiateCheckout, Lead, CompleteRegistration, Contact</strong>.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon io">🧪</div>
+      <div class="card-title">Kiểm thử tự động</div>
+      <div class="card-body">Script Playwright tự click 6 nút, xác nhận 6/6 beacon gửi thành công đến Zalo. Kết quả: <strong>6/6 PASS</strong>.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CƠ CHẾ ══ -->
+<section id="how">
+  <div class="sec-label">Cơ chế hoạt động</div>
+  <div class="sec-title">Từ load trang đến beacon conversion</div>
+  <div class="sec-desc">Toàn bộ luồng diễn ra tự động sau khi nhúng GTM và cấu hình Conversion trong ZAM — không cần thêm bất kỳ code nào vào website.</div>
+
+  <div class="flow">
+    <div class="flow-row">
+      <div class="fbox">🌐 Trang web load</div>
+      <div class="arr">→</div>
+      <div class="fbox y">🏷 GTM: Tag Initialize fire<br><span style="font-size:10.5px;color:#fca5a5;">Trigger: Initialization — All Pages</span></div>
+      <div class="arr">→</div>
+      <div class="fbox">⚙️ ztracker.js tải từ CDN<br><span style="font-size:10.5px;color:#93c5fd;">dev-adtima-static.zdn.vn</span></div>
+    </div>
+    <span class="arr-down">↓</span>
+    <div class="flow-row flow-indent">
+      <div class="fbox">📋 GET /ptrck/events</div>
+      <div class="arr">→</div>
+      <div class="fbox">Nhận danh sách quy tắc conversion<br><span style="font-size:10.5px;color:#93c5fd;">id / class / text của từng nút cần track</span></div>
+      <div class="fbox note">← từ Zalo Ads Manager</div>
+    </div>
+    <span class="arr-down">↓</span>
+    <div class="flow-row flow-indent">
+      <div class="fbox">👂 Gắn click listener toàn trang<br><span style="font-size:10.5px;color:#93c5fd;">document.addEventListener('click', ...)</span></div>
+    </div>
+    <span class="arr-down">↓ &nbsp;user click vào bất kỳ nút nào</span>
+    <div class="flow-row flow-indent">
+      <div class="fbox">🔍 Dò ngược DOM từ phần tử được click</div>
+      <div class="arr">→</div>
+      <div class="fbox">Khớp quy tắc? (id / class / text)</div>
+      <div class="arr">→</div>
+      <div class="fbox g">✅ GET /ptrck/log</div>
+    </div>
+    <span class="arr-down">↓</span>
+    <div class="flow-row flow-indent">
+      <div class="fbox g">📊 Zalo Ads Manager ghi nhận conversion</div>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <span class="callout-icon">💡</span>
+    <div>
+      <strong>Điều cốt lõi</strong>
+      <p>Developer chỉ nhúng GTM snippet <strong>một lần duy nhất</strong>. Mọi thêm/bớt/thay đổi nút cần track đều do marketer tự làm trong ZAM — không cần release code, không cần động tới website.</p>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div>
+      <strong>Cơ chế này ghi nhận lượt nhấp — không ghi nhận giá trị giao dịch</strong>
+      <p>Beacon gửi đến Zalo chứa thông tin: <em>nút nào được nhấp, trên trang nào, lúc nào</em>. Doanh thu, giá trị đơn hàng, số lượng sản phẩm <strong>không được ghi nhận</strong> qua cơ chế này.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ ĐÓNG GÓI ══ -->
+<section id="packaging">
+  <div class="sec-label">Phân phối</div>
+  <div class="sec-title">Đóng gói template cho nhiều advertiser</div>
+  <div class="sec-desc">Ba cách chia sẻ template — từ nhanh nhất đến hoàn chỉnh nhất về dài hạn.</div>
+
+  <div class="pkg hot">
+    <div class="pkg-hdr">
+      <div class="pkg-n">1</div>
+      <div>
+        <div class="pkg-title">Gửi file <code>.tpl</code> trực tiếp</div>
+        <div class="pkg-sub">Import vào GTM trong 2 phút, không cần approval</div>
+      </div>
+      <span class="pbadge pb-now">⚡ Dùng ngay</span>
+    </div>
+    <div class="pkg-body">
+      <p>Gửi file <code>template.tpl</code> cho advertiser qua email hoặc Zalo. Họ tự import vào GTM container của mình.</p>
+      <div class="pkg-step"><div class="pkg-sn">1</div><span>Gửi file <code>template.tpl</code></span></div>
+      <div class="pkg-step"><div class="pkg-sn">2</div><span>GTM → <strong>Mẫu → Mẫu thẻ → Mới → ⋮ → Nhập</strong> → chọn file → xem lại quyền → <strong>Lưu</strong></span></div>
+      <div class="pkg-step"><div class="pkg-sn">3</div><span>Khi tạo tag mới sẽ thấy <strong>"Zalo Pixel"</strong> trong danh sách loại thẻ</span></div>
+      <div class="pro-con">
+        <div class="pro"><strong>✅ Ưu điểm</strong><ul><li>Deploy ngay, không chờ review</li><li>Phù hợp internal hoặc beta</li></ul></div>
+        <div class="con"><strong>⚠️ Nhược điểm</strong><ul><li>Phải gửi lại file khi có update</li><li>Không tự cập nhật phía advertiser</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pkg">
+    <div class="pkg-hdr">
+      <div class="pkg-n">2</div>
+      <div>
+        <div class="pkg-title">Export Container JSON</div>
+        <div class="pkg-sub">Kèm tag + trigger + variable — advertiser chỉ cần đổi Pixel ID</div>
+      </div>
+      <span class="pbadge pb-ent">📦 All-in-one</span>
+    </div>
+    <div class="pkg-body">
+      <p>Export toàn bộ GTM Container thành 1 file JSON. Phù hợp advertiser mới hoàn toàn — import xong là có sẵn tag Initialize, trigger, variable Pixel ID.</p>
+      <div class="pkg-step"><div class="pkg-sn">1</div><span>GTM → <strong>Quản trị → Xuất container</strong> → chọn phiên bản mới nhất → Export JSON</span></div>
+      <div class="pkg-step"><div class="pkg-sn">2</div><span>Gửi file JSON kèm hướng dẫn: đổi giá trị biến <code>Zalo Pixel ID</code> thành Pixel ID của mình</span></div>
+      <div class="pkg-step"><div class="pkg-sn">3</div><span>Advertiser: GTM → <strong>Quản trị → Nhập container</strong> → chọn JSON</span></div>
+    </div>
+  </div>
+
+  <div class="pkg">
+    <div class="pkg-hdr">
+      <div class="pkg-n">3</div>
+      <div>
+        <div class="pkg-title">GTM Community Template Gallery</div>
+        <div class="pkg-sub">Public — advertiser tự tìm và install từ thư viện GTM</div>
+      </div>
+      <span class="pbadge pb-rec">🌐 Dài hạn</span>
+    </div>
+    <div class="pkg-body">
+      <p>Submit lên thư viện GTM chính thức. Sau khi Google duyệt, mọi advertiser tìm "Zalo Pixel" và install trực tiếp — không cần nhận file.</p>
+      <div class="callout warn" style="margin-top: 10px;">
+        <span class="callout-icon">⏳</span>
+        <div><strong>Chưa sẵn sàng — còn thiếu</strong>
+        <p>Icon PNG 128×128 · Terms of Service (Legal) · Privacy Policy (Legal) · Google review mất 2–4 tuần sau khi submit</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ SETUP GTM ══ -->
+<section id="gtm">
+  <div class="sec-label">Setup GTM</div>
+  <div class="sec-title">Cài đặt Zalo Pixel trong Google Tag Manager</div>
+  <div class="sec-desc">Thực hiện một lần duy nhất cho mỗi website. Chỉ cần <strong>1 tag Initialize</strong> — toàn bộ click tracking hoạt động từ tag này.</div>
+
+  <div class="callout tip">
+    <span class="callout-icon">📋</span>
+    <div>
+      <strong>Cần chuẩn bị trước</strong>
+      <p>Tài khoản Google Tag Manager · Pixel ID — lấy tại Zalo Ads Manager → <strong>Công cụ → Thư viện chuyển đổi → Pixel của tôi → Lấy mã Pixel</strong></p>
+    </div>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Nhúng GTM snippet vào website</h3>
+        <p>Developer thực hiện một lần duy nhất — lấy đoạn code từ GTM → <strong>Quản trị → Cài đặt Google Tag Manager → Cài đặt Google Tag Manager</strong>. Có 2 đoạn cần nhúng:</p>
+        <div class="tw" style="margin: 10px 0;">
+          <table>
+            <thead><tr><th>Vị trí</th><th>Đoạn code cần nhúng</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>Ngay sau thẻ mở <code>&lt;head&gt;</code></td>
+                <td><code>&lt;!-- Google Tag Manager --&gt;<br>&lt;script&gt;(function(w,d,s,l,i){...})('GTM-XXXXXXX');&lt;/script&gt;<br>&lt;!-- End Google Tag Manager --&gt;</code></td>
+              </tr>
+              <tr>
+                <td>Ngay sau thẻ mở <code>&lt;body&gt;</code></td>
+                <td><code>&lt;!-- Google Tag Manager (noscript) --&gt;<br>&lt;noscript&gt;&lt;iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"...&gt;&lt;/iframe&gt;&lt;/noscript&gt;<br>&lt;!-- End Google Tag Manager (noscript) --&gt;</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout info">
+          <span class="callout-icon">💡</span>
+          <div><p>Thay <code>GTM-XXXXXXX</code> bằng GTM ID thực của container (ví dụ <code>GTM-NZJLBMFK</code>). Sau khi nhúng xong, mọi tag trong GTM sẽ hoạt động trên trang — developer không cần động vào code website nữa.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Import Zalo Pixel Template vào GTM</h3>
+        <p>GTM → <strong>Mẫu → Mẫu thẻ → Mới</strong> → nhấn dấu <strong>⋮</strong> góc trên phải → <strong>Nhập</strong> → chọn file <code>template.tpl</code> → xem lại các quyền → <strong>Lưu</strong>.</p>
+        <p>Sau khi import xong, khi tạo tag mới sẽ thấy <strong>"Zalo Pixel"</strong> xuất hiện trong danh sách loại thẻ tùy chỉnh.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Tạo biến chứa Pixel ID</h3>
+        <p>GTM → <strong>Biến → Mới</strong> → loại <strong>Không đổi (Constant)</strong> → dán Pixel ID vào trường Giá trị → đặt tên biến là <code>Zalo Pixel ID</code> → <strong>Lưu</strong>.</p>
+        <div class="callout info">
+          <span class="callout-icon">💡</span>
+          <div><p>Lưu Pixel ID vào biến giúp khi cần đổi (staging → production) chỉ sửa một chỗ duy nhất. Tất cả tag dùng chung biến này.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">4</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Tạo Trigger — Initialization</h3>
+        <p>Tag Initialize phải chạy <em>trước</em> mọi tag khác. Dùng trigger loại <strong>Lượt xem trang — Khởi tạo</strong>:</p>
+        <ul>
+          <li>GTM → <strong>Trình kích hoạt → Mới</strong></li>
+          <li>Loại trigger: <strong>Lượt xem trang — Khởi tạo</strong></li>
+          <li>Kích hoạt trên: <em>Tất cả sự kiện khởi tạo</em></li>
+          <li>Đặt tên: <code>Trigger - Initialization - All Pages</code></li>
+          <li>Nhấn <strong>Lưu</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">5</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Tạo Tag Initialize — <em>tag duy nhất cần tạo</em></h3>
+        <p>Tag này tải ztracker.js, lấy quy tắc conversion từ ZAM và gắn click listener tự động. <strong>Đây là tag duy nhất cần thiết cho click tracking.</strong></p>
+        <div class="tw">
+          <table>
+            <thead><tr><th>Trường trong GTM</th><th>Giá trị cần điền</th></tr></thead>
+            <tbody>
+              <tr><td>Loại thẻ</td><td><strong>Zalo Pixel</strong> (trong danh sách Thẻ tùy chỉnh)</td></tr>
+              <tr><td>Action</td><td><strong>Initialize</strong></td></tr>
+              <tr><td>Pixel ID</td><td><code>{{Zalo Pixel ID}}</code> (biến vừa tạo)</td></tr>
+              <tr><td>Trình kích hoạt</td><td><code>Trigger - Initialization - All Pages</code></td></tr>
+              <tr><td>Tên thẻ</td><td><code>Zalo Pixel — Initialize</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Nhấn <strong>Lưu</strong> sau khi điền xong.</p>
+        <div class="callout ok">
+          <span class="callout-icon">✅</span>
+          <div><p>Chỉ cần tag này. Sau khi GTM publish, ztracker.js tự load → tự lấy quy tắc từ ZAM → tự gắn click listener. Không cần tạo thêm tag nào khác để tracking click hoạt động.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">6</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Publish Container</h3>
+        <p>GTM → nút <strong>Gửi (Submit)</strong> góc trên phải → đặt tên phiên bản (ví dụ: <em>v1 - Zalo Pixel setup</em>) → <strong>Xuất bản</strong>.</p>
+        <div class="callout ok">
+          <span class="callout-icon">✅</span>
+          <div><p>GTM setup hoàn tất. Bước tiếp theo: tạo Conversion trong Zalo Ads Manager để ztracker biết nút nào cần theo dõi.</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin: 36px 0 12px;">Giới hạn hiện tại — Loại conversion Zalo Ads hỗ trợ</h3>
+  <p style="font-size: 14px; color: #475569; margin-bottom: 14px;">Khi tạo conversion trong Zalo Ads Manager, hệ thống chỉ cho phép 2 loại: <strong>click nút bấm</strong> và <strong>truy cập URL</strong>. Tương ứng, backend Zalo chỉ sinh ra 2 kind khi trả về quy tắc cho ztracker:</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Kind</th><th>Tên</th><th>Tạo được trong ZAM?</th><th>Tracking được gì</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><code>kind=4</code></td>
+          <td>WEB_ELEMENT</td>
+          <td><span style="color:#15803d;font-weight:700;">✅ Có</span></td>
+          <td>Click vào nút xác định qua ID / class / text. <strong>Đây là loại phổ biến nhất.</strong></td>
+        </tr>
+        <tr>
+          <td><code>kind=2</code></td>
+          <td>KEYWORD / URL</td>
+          <td><span style="color:#15803d;font-weight:700;">✅ Có</span></td>
+          <td>Người dùng truy cập trang có URL khớp từ khóa (trang cảm ơn, trang xác nhận đơn hàng,...).</td>
+        </tr>
+        <tr>
+          <td><code>kind=3</code></td>
+          <td>STANDARD</td>
+          <td><span style="color:#dc2626;font-weight:700;">❌ Chưa có</span></td>
+          <td>Gọi lập trình với tham số: <code>ztrq('track', 'Purchase', {value, currency})</code>. <strong>Chưa tạo được trong ZAM</strong> — backend chỉ dùng nội bộ cho LadiPage/MiniApp.</td>
+        </tr>
+        <tr>
+          <td><code>kind=1</code></td>
+          <td>BUTTON</td>
+          <td><span style="color:#94a3b8;font-weight:700;">— Ẩn</span></td>
+          <td>Click theo button ID — phiên bản cũ, đã được thay bằng kind=4 (WEB_ELEMENT) linh hoạt hơn.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div>
+      <strong>Vì chỉ có kind=2 và kind=4 — tracking tham số chưa khả dụng</strong>
+      <p>Các event kèm dữ liệu như giá trị đơn hàng (<code>value</code>), tiền tệ (<code>currency</code>), số lượng (<code>quantity</code>) yêu cầu kind=3 (Standard). Do ZAM chưa cho tạo loại conversion này, Tag <strong>Track Event</strong> trong template — dù đã có sẵn — sẽ <strong>không gửi được beacon</strong>. Chỉ cần dùng Tag Initialize là đủ cho mọi conversion hiện tại.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ TẠO CONVERSION ══ -->
+<section id="conversion">
+  <div class="sec-label">Zalo Ads Manager</div>
+  <div class="sec-title">Tạo Conversion trong ZAM</div>
+  <div class="sec-desc">Conversion khai báo cho Zalo biết nút nào trên trang cần ghi nhận. ztracker tải danh sách này mỗi khi trang load và tự giám sát — không cần deploy lại GTM.</div>
+
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div>
+      <strong>GTM và ZAM phải được cấu hình cùng nhau</strong>
+      <p>Tag Initialize trong GTM hoạt động với mọi Pixel ID, nhưng nếu chưa tạo Conversion trong ZAM thì ztracker không biết nút nào cần track và sẽ <strong>không gửi beacon nào</strong>. Hai bước này bắt buộc phải có nhau.</p>
+    </div>
+  </div>
+
+  <p style="margin: 24px 0 8px; font-size: 14px; color: #334155;"><strong>Đường dẫn:</strong> Zalo Ads Manager → <strong>Công cụ</strong> → <strong>Chuyển đổi</strong> → <strong>Tạo chuyển đổi</strong></p>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Tên của conversion</h3>
+        <p>Đặt tên rõ ràng để phân biệt trong báo cáo. Tối đa 180 ký tự, không được trùng tên đã dùng.</p>
+        <p><strong>Gợi ý:</strong> <em>Website - Mua hàng</em> · <em>Landing page - Gửi form tư vấn</em> · <em>Homepage - Đặt lịch hẹn</em></p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Loại conversion</h3>
+        <p>Chọn loại sự kiện phù hợp từ dropdown. Đây là nhãn phân loại để báo cáo hiển thị đúng cột số liệu — xem danh sách 17 loại ở phần <a href="#events" style="color:#0068ff;">Loại Conversion</a> bên dưới.</p>
+        <p><strong>Ví dụ:</strong> Nút "Đặt hàng" → chọn <em>Purchase</em> · Nút "Gửi form tư vấn" → chọn <em>Lead</em> · Nút "Đặt lịch" → chọn <em>Schedule</em></p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Trang đích liên kết</h3>
+        <p>Nhập URL trang web chứa nút cần track. Chọn kiểu khớp URL:</p>
+        <ul>
+          <li><strong>Bằng</strong> — chỉ theo dõi đúng trang này (URL phải khớp chính xác)</li>
+          <li><strong>Có chứa</strong> — theo dõi tất cả URL chứa chuỗi này, dùng khi URL có tham số động (ví dụ: <code>example.com/product/</code> để track mọi trang sản phẩm)</li>
+        </ul>
+        <div class="callout info" style="margin-top: 10px;">
+          <span class="callout-icon">ℹ️</span>
+          <div><p>Sau khi nhập URL và rời ô nhập liệu, hệ thống <strong>tự động tải danh sách phần tử</strong> trên trang đó để hỗ trợ bước cấu hình nút bấm tiếp theo.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">4</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Thêm sự kiện nút bấm</h3>
+        <p>Click <strong>"Thêm sự kiện nút bấm"</strong>. Xác định nút bấm bằng một trong ba thuộc tính (xem chi tiết ở phần <a href="#selector" style="color:#0068ff;">Cấu hình nút</a>):</p>
+        <div class="tw">
+          <table>
+            <thead><tr><th>Cách xác định</th><th>Ví dụ điền vào ZAM</th><th>Khi nào dùng</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong>ID của nút bấm</strong></td>
+                <td><code>btn-purchase</code></td>
+                <td>Developer đặt thuộc tính <code>id</code> — chính xác nhất, khuyến nghị dùng đầu tiên</td>
+              </tr>
+              <tr>
+                <td><strong>Class của nút bấm</strong></td>
+                <td><code>btn-add-to-cart</code></td>
+                <td>Nút không có ID cố định hoặc muốn track nhiều nút cùng kiểu</td>
+              </tr>
+              <tr>
+                <td><strong>Nội dung của nút bấm</strong></td>
+                <td><code>Tiến hành thanh toán</code></td>
+                <td>Không có ID/class cố định, hoặc không thể sửa code website</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li>Có thể thêm tối đa <strong>10 nút bấm</strong> cho một conversion</li>
+          <li>Mỗi nút có thể kết hợp nhiều điều kiện: ID <em>và</em> Class <em>và</em> Text phải đều khớp</li>
+          <li>Nếu có nhiều điều kiện, ztracker phải khớp <strong>tất cả</strong> mới tính là nhấp đúng nút</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">5</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Thêm sự kiện đường dẫn URL <span style="font-weight: 400; font-size: 13px; color: #94a3b8;">(tùy chọn)</span></h3>
+        <p>Ngoài nút bấm, có thể ghi nhận conversion khi người dùng truy cập vào một URL cụ thể — ví dụ trang xác nhận đơn hàng <code>/order-success</code> hoặc trang cảm ơn <code>/thank-you</code>.</p>
+        <p>Click <strong>"Thêm sự kiện đường dẫn URL"</strong> và nhập từ khóa URL. ztracker tự kiểm tra URL hiện tại ngay khi trang load.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">6</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Lưu Conversion</h3>
+        <p>Click <strong>"Lưu conversion"</strong>. Nút Lưu chỉ active khi đã điền đủ: Tên, Loại conversion, Trang đích, và ít nhất 1 sự kiện (nút bấm hoặc URL).</p>
+        <div class="callout ok">
+          <span class="callout-icon">✅</span>
+          <div><p>Ngay sau khi lưu, lần tải trang tiếp theo ztracker tự nhận quy tắc mới qua <code>/ptrck/events</code> và bắt đầu giám sát nút vừa cấu hình — không cần publish lại GTM.</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-size: 16px; font-weight: 700; color: #0f172a; margin: 36px 0 14px;">Ví dụ conversion thường gặp</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Tên Conversion</th><th>Loại (chọn trong ZAM)</th><th>Cấu hình nút bấm</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Mua hàng</strong></td><td>Purchase</td><td>ID: <code>btn-purchase</code> hoặc Text: <em>Xác nhận đặt hàng</em></td></tr>
+        <tr><td><strong>Thêm vào giỏ hàng</strong></td><td>AddToCart</td><td>Class: <code>btn-add-to-cart</code> hoặc Text: <em>Thêm vào giỏ</em></td></tr>
+        <tr><td><strong>Bắt đầu thanh toán</strong></td><td>InitiateCheckout</td><td>ID: <code>btn-checkout</code> hoặc Text: <em>Tiến hành thanh toán</em></td></tr>
+        <tr><td><strong>Gửi form tư vấn</strong></td><td>Lead</td><td>ID: <code>btn-lead</code> hoặc Text: <em>Gửi yêu cầu tư vấn</em></td></tr>
+        <tr><td><strong>Đăng ký tài khoản</strong></td><td>CompleteRegistration</td><td>Text: <em>Đăng ký</em> hoặc ID: <code>btn-register</code></td></tr>
+        <tr><td><strong>Đặt lịch hẹn</strong></td><td>Schedule</td><td>Text: <em>Đặt lịch</em> hoặc ID: <code>btn-schedule</code></td></tr>
+        <tr><td><strong>Liên hệ / Chat</strong></td><td>Contact</td><td>Text: <em>Chat ngay</em> · Text: <em>Gọi điện tư vấn</em></td></tr>
+        <tr><td><strong>Trang xác nhận đơn hàng</strong></td><td>Purchase</td><td>URL Có chứa: <code>/order-success</code> hoặc <code>/thank-you</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ══ CẤU HÌNH NÚT ══ -->
+<section id="selector">
+  <div class="sec-label">Cấu hình nút bấm</div>
+  <div class="sec-title">Cách xác định đúng nút cần track</div>
+  <div class="sec-desc">ztracker dò ngược từ phần tử được click lên tới <code>&lt;body&gt;</code> để tìm phần tử khớp quy tắc — nhấp vào phần tử con vẫn được tính nếu cha khớp quy tắc.</div>
+
+  <div class="sel-grid">
+    <div class="sel-card">
+      <div class="sel-type">ID — Khuyến nghị</div>
+      <div class="sel-ex">id="btn-purchase"</div>
+      <div class="sel-note">Chính xác nhất. Một ID chỉ xuất hiện một lần trên trang. Nhờ developer thêm thuộc tính <code>id</code> vào nút nếu chưa có.</div>
+    </div>
+    <div class="sel-card">
+      <div class="sel-type">Class CSS</div>
+      <div class="sel-ex">class="btn-add-to-cart"</div>
+      <div class="sel-note">Track tất cả nút có class này. Dùng khi nhiều nút cùng kiểu (danh sách sản phẩm) hoặc nút không có ID.</div>
+    </div>
+    <div class="sel-card">
+      <div class="sel-type">Nội dung text</div>
+      <div class="sel-ex">Tiến hành thanh toán</div>
+      <div class="sel-note">Khớp nội dung chữ hiển thị. Không cần sửa code. Lưu ý: đổi text là mất tracking ngay.</div>
+    </div>
+  </div>
+
+  <h3 style="font-size: 15.5px; font-weight: 700; color: #0f172a; margin: 28px 0 12px;">Cách lấy ID / Class từ trình duyệt</h3>
+
+  <div class="steps">
+    <div class="step" style="padding: 18px 0;">
+      <div class="step-left"><div class="step-num" style="width:32px;height:32px;font-size:13px;">1</div><div class="step-line"></div></div>
+      <div class="step-body" style="padding-top: 3px;">
+        <h3 style="font-size: 14px;">Mở DevTools và chọn phần tử</h3>
+        <p>Nhấp chuột phải vào nút trên trang → <strong>Kiểm tra (Inspect)</strong>. Hoặc nhấn <strong>F12</strong> → dùng biểu tượng chọn phần tử (Ctrl+Shift+C) → click vào nút.</p>
+      </div>
+    </div>
+    <div class="step" style="padding: 18px 0;">
+      <div class="step-left"><div class="step-num" style="width:32px;height:32px;font-size:13px;">2</div><div class="step-line"></div></div>
+      <div class="step-body" style="padding-top: 3px;">
+        <h3 style="font-size: 14px;">Đọc thuộc tính HTML của nút</h3>
+        <p>Tìm thẻ <code>&lt;button&gt;</code>, <code>&lt;a&gt;</code> hoặc <code>&lt;div&gt;</code> tương ứng. Đọc giá trị của <code>id</code> và <code>class</code>:</p>
+        <div class="tw" style="margin-top: 10px;">
+          <table>
+            <thead><tr><th>HTML của nút</th><th>ID điền vào ZAM</th><th>Class điền vào ZAM</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><code>&lt;button id="btn-purchase" class="btn-primary"&gt;Đặt hàng&lt;/button&gt;</code></td>
+                <td><code>btn-purchase</code></td>
+                <td><code>btn-primary</code></td>
+              </tr>
+              <tr>
+                <td><code>&lt;button class="btn-add-to-cart rounded-lg"&gt;Thêm vào giỏ&lt;/button&gt;</code></td>
+                <td>(không có ID)</td>
+                <td><code>btn-add-to-cart</code></td>
+              </tr>
+              <tr>
+                <td><code>&lt;a href="/checkout"&gt;Tiến hành thanh toán&lt;/a&gt;</code></td>
+                <td>(không có ID)</td>
+                <td>Dùng Text: <em>Tiến hành thanh toán</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="step" style="padding: 18px 0;">
+      <div class="step-left"><div class="step-num" style="width:32px;height:32px;font-size:13px;">3</div><div class="step-line"></div></div>
+      <div class="step-body" style="padding-top: 3px;">
+        <h3 style="font-size: 14px;">Điền vào form ZAM và lưu</h3>
+        <p>Nhập đúng giá trị đọc được. <strong>Phân biệt chữ hoa/thường:</strong> <code>btn-purchase</code> ≠ <code>Btn-Purchase</code>. Chỉ nhập phần giá trị, không nhập cả thuộc tính HTML.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <span class="callout-icon">⚠️</span>
+    <div>
+      <strong>Những thay đổi trên website có thể làm mất tracking</strong>
+      <p>Developer đổi tên <code>id</code> hoặc <code>class</code> của nút, hoặc đổi nội dung text → quy tắc trong ZAM không còn khớp → beacon không fire. Khi website có thay đổi giao diện, luôn kiểm tra lại các conversion trong ZAM và cập nhật nếu cần.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 17 LOẠI ══ -->
+<section id="events">
+  <div class="sec-label">Loại Conversion</div>
+  <div class="sec-title">17 loại sự kiện chuẩn</div>
+  <div class="sec-desc">Chọn đúng loại khi tạo conversion trong ZAM để báo cáo hiển thị đúng cột số liệu. Đây là nhãn phân loại — không phải code cần viết vào website.</div>
+
+  <div class="ev-grid">
+    <div class="ev-chip"><div class="ev-name">Purchase</div><div class="ev-desc">Giao dịch hoàn tất</div></div>
+    <div class="ev-chip"><div class="ev-name">AddToCart</div><div class="ev-desc">Thêm vào giỏ hàng</div></div>
+    <div class="ev-chip"><div class="ev-name">InitiateCheckout</div><div class="ev-desc">Bắt đầu thanh toán</div></div>
+    <div class="ev-chip"><div class="ev-name">AddPaymentInfo</div><div class="ev-desc">Nhập thông tin thanh toán</div></div>
+    <div class="ev-chip"><div class="ev-name">AddToWishlist</div><div class="ev-desc">Thêm vào quan tâm</div></div>
+    <div class="ev-chip"><div class="ev-name">ViewContent</div><div class="ev-desc">Xem trang / nội dung</div></div>
+    <div class="ev-chip"><div class="ev-name">Lead</div><div class="ev-desc">Gửi form liên hệ / tư vấn</div></div>
+    <div class="ev-chip"><div class="ev-name">CompleteRegistration</div><div class="ev-desc">Hoàn tất đăng ký</div></div>
+    <div class="ev-chip"><div class="ev-name">Contact</div><div class="ev-desc">Gọi điện, chat, nhắn tin</div></div>
+    <div class="ev-chip"><div class="ev-name">Schedule</div><div class="ev-desc">Đặt lịch hẹn</div></div>
+    <div class="ev-chip"><div class="ev-name">SubmitApplication</div><div class="ev-desc">Gửi hồ sơ / đơn đăng ký</div></div>
+    <div class="ev-chip"><div class="ev-name">FindLocation</div><div class="ev-desc">Tìm địa điểm / cửa hàng</div></div>
+    <div class="ev-chip"><div class="ev-name">Search</div><div class="ev-desc">Tìm kiếm</div></div>
+    <div class="ev-chip"><div class="ev-name">StartTrial</div><div class="ev-desc">Bắt đầu dùng thử</div></div>
+    <div class="ev-chip"><div class="ev-name">Subscribe</div><div class="ev-desc">Đăng ký gói trả phí</div></div>
+    <div class="ev-chip"><div class="ev-name">CustomizeProduct</div><div class="ev-desc">Tùy chỉnh sản phẩm</div></div>
+    <div class="ev-chip"><div class="ev-name">Donate</div><div class="ev-desc">Quyên góp</div></div>
+  </div>
+</section>
+
+
+<!-- ══ KIỂM TRA ══ -->
+<section id="verify">
+  <div class="sec-label">Kiểm tra</div>
+  <div class="sec-title">Xác nhận tích hợp thành công</div>
+  <div class="sec-desc">Sau khi publish GTM và tạo Conversion trong ZAM, dùng DevTools để xác nhận beacon đã gửi đến Zalo đúng cách.</div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Mở DevTools → tab Network</h3>
+        <p>Trên trang web đã tích hợp, nhấn <strong>F12</strong> → chọn tab <strong>Network</strong> → gõ <code>ptrck</code> vào ô lọc để chỉ hiển thị request Zalo Pixel.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Reload trang — kiểm tra 2 request khởi tạo</h3>
+        <p>Sau khi reload, phải thấy 2 request này xuất hiện ngay lập tức:</p>
+        <div class="net-row">
+          <div style="flex:1;">
+            <div class="net-url">GET /ptrck/events?pixelId=7071675013144936448&amp;url=https%3A%2F%2F...</div>
+            <div class="net-label">ztracker tải danh sách quy tắc conversion từ ZAM. Response là mảng JSON chứa các quy tắc id/class/text.</div>
+          </div>
+          <span class="net-tag tag-ok">200 OK</span>
+        </div>
+        <div class="net-row">
+          <div style="flex:1;">
+            <div class="net-url">GET /tracklp?type=pageview&amp;pId=7071675013144936448&amp;...</div>
+            <div class="net-label">Beacon pageview tự động — xác nhận ztracker đã khởi tạo thành công và pixel đang hoạt động.</div>
+          </div>
+          <span class="net-tag tag-ok">200 OK</span>
+        </div>
+        <div class="callout warn" style="margin-top: 8px;">
+          <span class="callout-icon">⚠️</span>
+          <div><p>Nếu <strong>không thấy <code>/ptrck/events</code></strong>: Tag Initialize chưa fire. Kiểm tra GTM Preview — tag phải xuất hiện. Trigger phải là loại <em>Initialization</em>, không phải <em>Page View</em>.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Nhấp vào nút đã cấu hình — kiểm tra beacon conversion</h3>
+        <p>Click vào đúng nút đã cấu hình trong ZAM. Phải xuất hiện ngay request <code>/ptrck/log</code>:</p>
+        <div class="net-row">
+          <div style="flex:1;">
+            <div class="net-url">GET /ptrck/log?pId=7071675013144936448&amp;eId=839411886326153727&amp;et=4&amp;url=...&amp;eclckcb=%7B%22id%22%3A%5B%22btn-purchase%22%5D%7D</div>
+            <div class="net-label">
+              <strong>et=4</strong> — click detection thành công &nbsp;·&nbsp;
+              <strong>eId</strong> — ID conversion trong ZAM &nbsp;·&nbsp;
+              <strong>eclckcb</strong> — nút đã khớp (id/class/text)
+            </div>
+          </div>
+          <span class="net-tag tag-key">et=4</span>
+        </div>
+        <div class="callout ok" style="margin-top: 8px;">
+          <span class="callout-icon">✅</span>
+          <div><p>Thấy <code>/ptrck/log</code> với Status <strong>200 OK</strong> và đúng <code>eId</code> là tích hợp thành công. Zalo đã ghi nhận lượt nhấp.</p></div>
+        </div>
+        <div class="callout warn" style="margin-top: 8px;">
+          <span class="callout-icon">⚠️</span>
+          <div><p>Nếu <strong>click không ra <code>/ptrck/log</code></strong>: Quy tắc trong ZAM không khớp nút trên trang. Inspect nút, kiểm tra lại giá trị id/class/text xem có khớp chính xác với ZAM không (phân biệt hoa/thường).</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">4</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <h3>Debug trên thiết bị di động</h3>
+        <p>Thêm <code>?_ztrdebug=eruda</code> vào cuối URL để bật console debug ngay trên điện thoại. Eruda sẽ hiện console nổi ở góc màn hình — không cần cắm dây hay cài thêm phần mềm.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="font-size: 15.5px; font-weight: 700; color: #0f172a; margin: 36px 0 14px;">Xử lý sự cố thường gặp</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Triệu chứng</th><th>Nguyên nhân</th><th>Cách xử lý</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Không thấy request <code>/ptrck/events</code> nào</td>
+          <td>Tag Initialize chưa fire hoặc GTM chưa publish</td>
+          <td>Mở GTM Preview Mode, đảm bảo tag <em>Zalo Pixel — Initialize</em> xuất hiện. Kiểm tra trigger là loại <strong>Initialization</strong>. Publish container nếu chưa publish.</td>
+        </tr>
+        <tr>
+          <td><code>/ptrck/events</code> trả về mảng rỗng <code>[]</code></td>
+          <td>Chưa tạo Conversion trong ZAM, hoặc URL trang không khớp Trang đích</td>
+          <td>Tạo Conversion trong ZAM. Đảm bảo URL trong <em>Trang đích liên kết</em> khớp trang đang test — dùng kiểu <strong>Có chứa</strong> nếu URL có tham số query.</td>
+        </tr>
+        <tr>
+          <td>Click nút không thấy <code>/ptrck/log</code></td>
+          <td>Quy tắc ZAM không khớp nút trên trang</td>
+          <td>Inspect nút bằng DevTools, đọc chính xác id/class/text. So sánh với ZAM — phân biệt chữ hoa/thường. Thử dùng Text nếu ID/Class không khớp.</td>
+        </tr>
+        <tr>
+          <td>Beacon fire nhưng ZAM không hiện dữ liệu</td>
+          <td>Delay báo cáo thông thường của hệ thống</td>
+          <td>Chờ 24–48 giờ. Beacon 200 OK nghĩa là Zalo đã nhận — báo cáo có độ trễ xử lý.</td>
+        </tr>
+        <tr>
+          <td>GTM Preview không thấy tag nào</td>
+          <td>Container chưa publish hoặc GTM ID sai</td>
+          <td>Publish container. Kiểm tra GTM ID trong snippet nhúng vào website phải trùng với GTM container đang cấu hình.</td>
+        </tr>
+        <tr>
+          <td>Nút click được nhưng beacon thỉnh thoảng không fire</td>
+          <td>Nút bị unmount khỏi DOM trước khi ztracker xử lý xong</td>
+          <td>Liên hệ developer — nút bị xóa quá sớm sau khi click. Cần giữ nút trong DOM đủ lâu để click event bubble lên document.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div style="height: 60px;"></div>
+<hr class="divider">
+<div style="text-align: center; color: #94a3b8; font-size: 12.5px; padding: 28px 0 48px; line-height: 2;">
+  <p>Zalo Pixel GTM Template · Internal Documentation</p>
+  <p>Template v1 · Container GTM-NZJLBMFK · 6/6 events verified · Click tracking only</p>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>

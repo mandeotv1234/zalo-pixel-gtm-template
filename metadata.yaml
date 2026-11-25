@@ -1,0 +1,44 @@
+homepage: https://github.com/[org]/zalo-pixel-gtm-template
+documentation: https://github.com/[org]/zalo-pixel-gtm-template#readme
+versions:
+  - changelog: >-
+      Pixel V2. contents is a comma-separated string of page/product codes
+      (e.g. '401,402' — per zalo-ads-v2's own docs: "Danh sách mã trang hoặc
+      mã sản phẩm, phân cách bằng dấu phẩy", used by AddToWishlist), not an
+      array of any kind — forwarded as-is with no transform. track() logs as
+      kind=5 (EventKind.NEW_STANDARD) and always fires a beacon now, matched
+      or not against a configured conversion, so using both this tag and an
+      Event Builder webElement rule (kind=4) on the same action
+      double-counts. Added a Pageview (SPA) action for custom routers (most
+      frameworks are auto-detected and don't need it). Documented filtering
+      gtm-msr.appspot.com bot-scan traffic via a GTM Trigger Exception on
+      {{Page Hostname}}.
+
+      Field cleanup: content_type and contents changed from SELECT/
+      SIMPLE_TABLE to plain TEXT on every group that had them — neither of
+      those types can bind a dataLayer variable in the GTM UI. Every
+      per-standard-event group (Purchase, AddToCart, InitiateCheckout,
+      AddPaymentInfo, AddToWishlist, ViewContent, Lead, Search) now shows
+      EXACTLY the fields in zalo-ads-v2's own SUGGESTED_PARAMS for that
+      event, no more, no less. Deleted the 7 groups for events with no
+      SUGGESTED_PARAMS entry at all (CustomizeProduct, CompleteRegistration,
+      Donate, Schedule, StartTrial, SubmitApplication, Subscribe) — those 9
+      events (plus Contact and FindLocation, which never had a group) now
+      show no dedicated fields, only the generic Additional Parameters
+      table. Removed the hard gtmOnFailure() validation for Search without
+      query and Purchase without currency/value, and the matching "⚠ bắt
+      buộc" labels — SUGGESTED_PARAMS is a display suggestion in
+      zalo-ads-v2, not a real constraint, so no field is actually required.
+      Total field count: 112 -> 47 (well under GTM's per-template limit).
+
+      Every track() call this template makes now sets a reserved
+      `_eventTrigger: 'GTM'` key on the params object, right before calling
+      ztrq('track', ...). Requires adtima-ztracker v1.9.0+, which strips
+      this key out before building stdParam and forwards it as the real
+      eventTrigger field on /ptrck/log (contract AS-3732 §4) — lets
+      backend/analytics tell GTM-originated conversions apart from plain
+      website/SDK track() calls, which never set this key and so keep
+      eventTrigger empty exactly as before.
+    sha: ""
+  - changelog: Initial release (Pixel V1). Initialize + Track event modes, 17 standard events.
+    sha: ""
